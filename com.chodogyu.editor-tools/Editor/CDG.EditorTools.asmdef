@@ -1,0 +1,7 @@
+{
+  "name": "CDG.EditorTools",
+  "rootNamespace": "CDG.EditorTools",
+  "includePlatforms": [
+    "Editor"
+  ]
+}

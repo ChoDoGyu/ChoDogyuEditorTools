@@ -1,0 +1,10 @@
+{
+  "name": "com.chodogyu.editor-tools",
+  "version": "1.0.0",
+  "displayName": "ChoDogyu General Editor Tools",
+  "description": "Unity 프로젝트의 반복적인 Editor 작업과 검증 작업을 지원하는 범용 Editor 도구 패키지입니다.",
+  "unity": "6000.0",
+  "author": {
+    "name": "ChoDogyu"
+  }
+}

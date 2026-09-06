@@ -1,0 +1,13 @@
+{
+  "name": "CDG.EditorTools.Tests.Editor",
+  "rootNamespace": "CDG.EditorTools.Tests",
+  "references": [
+    "CDG.EditorTools"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}
