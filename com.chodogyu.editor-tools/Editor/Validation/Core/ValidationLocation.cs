@@ -44,7 +44,13 @@ namespace CDG.EditorTools.Validation
         /// </summary>
         internal string ComponentGlobalId { get; }
 
-        internal ValidationLocation(string assetPath, string objectPath, string componentName, string propertyPath, string objectGlobalId, string componentGlobalId)
+        internal ValidationLocation(
+            string assetPath,
+            string objectPath, 
+            string componentName, 
+            string propertyPath, 
+            string objectGlobalId, 
+            string componentGlobalId)
         {
             AssetPath = assetPath ?? throw new ArgumentNullException(nameof(assetPath));
             ObjectPath = objectPath ?? throw new ArgumentNullException(nameof(objectPath));
