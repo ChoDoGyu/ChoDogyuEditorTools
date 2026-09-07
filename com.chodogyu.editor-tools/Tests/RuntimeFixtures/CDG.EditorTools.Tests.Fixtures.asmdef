@@ -1,0 +1,7 @@
+{
+  "name": "CDG.EditorTools.Tests.Fixtures",
+  "rootNamespace": "CDG.EditorTools.Tests.Fixtures",
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ]
+}

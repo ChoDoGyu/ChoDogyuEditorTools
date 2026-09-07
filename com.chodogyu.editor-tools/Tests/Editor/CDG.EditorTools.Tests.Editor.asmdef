@@ -2,7 +2,8 @@
   "name": "CDG.EditorTools.Tests.Editor",
   "rootNamespace": "CDG.EditorTools.Tests",
   "references": [
-    "CDG.EditorTools"
+    "CDG.EditorTools",
+    "CDG.EditorTools.Tests.Fixtures"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"
