@@ -18,6 +18,12 @@ namespace CDG.EditorTools.Validation.Scopes
         private const string UnsafeSceneStateMessage = "저장되지 않은 Scene 또는 변경 사항이 있어 Project Scene Validation을 실행할 수 없습니다. 열린 Scene을 모두 저장한 뒤 다시 실행해주세요.";
 
         private readonly HierarchyValidationRunner _hierarchyValidationRunner = new HierarchyValidationRunner();
+        private readonly IValidationProgress _progress;
+
+        internal ProjectScenesValidationScope(IValidationProgress progress = null)
+        {
+            _progress = progress;
+        }
 
         /// <summary>
         /// 현재 열린 Scene 상태가 안전한지 확인한 뒤 Assets 폴더의 모든 .unity Scene을 검사합니다.
@@ -44,6 +50,7 @@ namespace CDG.EditorTools.Validation.Scopes
             {
                 for (int i = 0; i < scenePaths.Count; i++)
                 {
+                    ReportProgress(scenePaths[i], i, scenePaths.Count);
                     ValidateScenePath(scenePaths[i], rules, issues);
                 }
             }
@@ -119,6 +126,22 @@ namespace CDG.EditorTools.Validation.Scopes
             for (int i = 0; i < roots.Length; i++)
             {
                 _hierarchyValidationRunner.Validate(roots[i], scenePath, rules, issues);
+            }
+        }
+
+        private void ReportProgress(string assetPath, int index, int totalCount)
+        {
+            if (_progress == null)
+            {
+                return;
+            }
+
+            float progress = totalCount == 0 ? 1f : (float)index / totalCount;
+            string detail = $"{index + 1}/{totalCount}  {assetPath}";
+
+            if (_progress.Report("CDG Validation - Project Scenes", detail, progress))
+            {
+                throw new OperationCanceledException("Validation이 사용자에 의해 취소되었습니다.");
             }
         }
 

@@ -10,8 +10,14 @@ namespace CDG.EditorTools.Validation.Scopes
     /// </summary>
     internal sealed class ProjectValidationScope : IValidationScope
     {
-        private readonly ProjectPrefabsValidationScope _prefabsScope = new ProjectPrefabsValidationScope();
-        private readonly ProjectScenesValidationScope _scenesScope = new ProjectScenesValidationScope();
+        private readonly ProjectPrefabsValidationScope _prefabsScope;
+        private readonly ProjectScenesValidationScope _scenesScope;
+
+        internal ProjectValidationScope(IValidationProgress progress = null)
+        {
+            _prefabsScope = new ProjectPrefabsValidationScope(progress);
+            _scenesScope = new ProjectScenesValidationScope(progress);
+        }
 
         /// <summary>
         /// Scene 안전성을 먼저 확인한 뒤 Project Prefab과 Project Scene을 순서대로 검사합니다.

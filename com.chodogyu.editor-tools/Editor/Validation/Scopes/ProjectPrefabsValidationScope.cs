@@ -14,6 +14,12 @@ namespace CDG.EditorTools.Validation.Scopes
     internal sealed class ProjectPrefabsValidationScope : IValidationScope
     {
         private readonly HierarchyValidationRunner _hierarchyValidationRunner = new HierarchyValidationRunner();
+        private readonly IValidationProgress _progress;
+
+        internal ProjectPrefabsValidationScope(IValidationProgress progress = null)
+        {
+            _progress = progress;
+        }
 
         /// <summary>
         /// Assets 폴더의 모든 .prefab Asset을 찾아 지정된 Validation 규칙을 실행합니다.
@@ -35,6 +41,8 @@ namespace CDG.EditorTools.Validation.Scopes
             for (int i = 0; i < prefabPaths.Count; i++)
             {
                 string prefabPath = prefabPaths[i];
+                ReportProgress(prefabPath, i, prefabPaths.Count);
+
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
                 if (prefab == null)
@@ -46,10 +54,25 @@ namespace CDG.EditorTools.Validation.Scopes
             }
         }
 
+        private void ReportProgress(string assetPath, int index, int totalCount)
+        {
+            if (_progress == null)
+            {
+                return;
+            }
+
+            float progress = totalCount == 0 ? 1f : (float)index / totalCount;
+            string detail = $"{index + 1}/{totalCount}  {assetPath}";
+
+            if (_progress.Report("CDG Validation - Project Prefabs", detail, progress))
+            {
+                throw new OperationCanceledException("Validation이 사용자에 의해 취소되었습니다.");
+            }
+        }
+
         private static List<string> GetPrefabPaths()
         {
             string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets" });
-
             List<string> paths = new List<string>();
 
             for (int i = 0; i < guids.Length; i++)
