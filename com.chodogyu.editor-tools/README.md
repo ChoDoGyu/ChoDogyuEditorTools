@@ -60,23 +60,33 @@ Project Prefabs, Project Scenes, Project 검사에서는 현재 검사 중인 As
 
 ## 설치
 
-### Git URL 설치
+### v1.0.0 설치
 
-이 패키지는 저장소 루트가 아니라 `com.chodogyu.editor-tools` 하위 폴더에 위치합니다.
+안정적으로 동일한 버전을 사용하려면 `v1.0.0` 태그를 지정하여 설치합니다.
 
-Unity Package Manager에서 Git 저장소를 통해 설치할 때는 저장소 Git URL 뒤에 다음 경로를 추가합니다.
+Unity Package Manager에서 다음 Git URL을 사용합니다.
 
 ```text
-?path=/com.chodogyu.editor-tools
+https://github.com/ChoDoGyu/ChoDogyuEditorTools.git?path=/com.chodogyu.editor-tools#v1.0.0
 ```
 
-Unity에서 다음 순서로 설치합니다.
+설치 순서:
 
 1. `Window > Package Manager`를 엽니다.
 2. 좌측 상단 `+` 버튼을 누릅니다.
-3. `Add package from git URL...`을 선택합니다.
-4. 저장소 Git URL과 `?path=/com.chodogyu.editor-tools` 경로를 함께 입력합니다.
-5. `Add`를 눌러 설치합니다.
+3. `Install package from git URL...`을 선택합니다.
+4. 위 Git URL을 입력합니다.
+5. `Install`을 눌러 설치합니다.
+
+### 최신 main 설치
+
+저장소의 최신 `main` 상태를 설치하려면 다음 Git URL을 사용합니다.
+
+```text
+https://github.com/ChoDoGyu/ChoDogyuEditorTools.git?path=/com.chodogyu.editor-tools
+```
+
+`main`은 이후 변경될 수 있으므로 일반적인 사용에는 `v1.0.0`처럼 버전이 고정된 설치를 권장합니다.
 
 ### Local Package 설치
 
@@ -84,7 +94,7 @@ Unity에서 다음 순서로 설치합니다.
 
 1. `Window > Package Manager`를 엽니다.
 2. 좌측 상단 `+` 버튼을 누릅니다.
-3. `Add package from disk...`를 선택합니다.
+3. `Install package from disk...`를 선택합니다.
 4. `com.chodogyu.editor-tools/package.json`을 선택합니다.
 5. 패키지 설치가 완료될 때까지 기다립니다.
 
@@ -125,7 +135,11 @@ Serialized Object Reference가 정상적인 `null` 상태가 아니라 삭제된
 
 ### Selection
 
-현재 선택된 GameObject와 해당 Hierarchy를 검사합니다.
+현재 선택된 GameObject, Component가 속한 GameObject 또는 Prefab Asset을 검사합니다.
+
+GameObject를 검사 대상으로 사용하는 경우 해당 Hierarchy 전체를 검사합니다.
+
+동일한 GameObject와 해당 Component가 함께 선택되거나 부모와 자식이 함께 선택된 경우 불필요한 중복 검사를 방지합니다.
 
 ### Loaded Scenes
 
